@@ -54,12 +54,7 @@ public class Book {
     public void packagify() {
         // 1. create Book folders and subfolders
         for (String str : paths) {
-            try {
-                System.out.println(str);
-                new File(str).mkdirs();
-            } catch (Exception ex) {
-                System.err.println(ex);
-            }
+            new File(str).mkdirs();
         }
         //TODO 2. create sample Main.xml in Data folder
         //TODO 3. create Book.txt                
@@ -74,7 +69,6 @@ public class Book {
         try (PDDocument document = PDDocument.load(pdfFile)) {
             int imageType = BufferedImage.TYPE_INT_RGB;
             PDFImageWriter pw = new PDFImageWriter();
-
             boolean success = pw.writeImage(document, "jpg", "",
                     1, document.getNumberOfPages(), big, imageType, 300);
             if (!success) {
@@ -91,9 +85,7 @@ public class Book {
      */
     public void copyBig2Thumbs() {
         File sourceDir = new File(big); //this directory already exists
-        File destDir = new File(thumbs);
-
-        Path destPath = destDir.toPath();
+        Path destPath = new File(thumbs).toPath();
         for (File sourceFile : sourceDir.listFiles()) {
             Path sourcePath = sourceFile.toPath();
             try {
